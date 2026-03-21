@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Dark mode via .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* ─── Design tokens ──────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Brand */
+  --color-brand-brown:  #6b3b19;
+  --color-brand-gold:   #d4aa00;
+  --color-brand-olive:  #88850b;
+  --color-brand-muted:  #9d5d25;
+
+  /* shadcn semantic tokens – mapped from CSS vars below */
+  --color-background:       var(--background);
+  --color-foreground:       var(--foreground);
+  --color-card:             var(--card);
+  --color-card-foreground:  var(--card-foreground);
+  --color-primary:          var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:        var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:            var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent:           var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive:      var(--destructive);
+  --color-border:           var(--border);
+  --color-input:            var(--input);
+  --color-ring:             var(--ring);
+
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Light theme ────────────────────────────────────────────── */
+:root {
+  --radius: 0.625rem;
+
+  --background:            #ffffff;
+  --foreground:            #1a1007;
+  --card:                  #ffffff;
+  --card-foreground:       #1a1007;
+  --primary:               #6b3b19;        /* brand brown */
+  --primary-foreground:    #ffffff;
+  --secondary:             #faf6ee;
+  --secondary-foreground:  #6b3b19;
+  --muted:                 #faf9f7;
+  --muted-foreground:      #6b5a4e;
+  --accent:                #faf6ee;
+  --accent-foreground:     #6b3b19;
+  --destructive:           #dc2626;
+  --border:                #ede8e2;
+  --input:                 #ede8e2;
+  --ring:                  #6b3b19;
+
+  /* Custom layout vars */
+  --bg-muted:              #faf9f7;
+  --fg-muted:              #6b5a4e;
+  --shadow-card:           0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-card-hover:     0 4px 12px rgba(0,0,0,0.10), 0 8px 28px rgba(0,0,0,0.06);
 }
 
+/* ─── Dark theme ─────────────────────────────────────────────── */
+.dark {
+  --background:            #111009;
+  --foreground:            #f0ebe4;
+  --card:                  #1f1c13;
+  --card-foreground:       #f0ebe4;
+  --primary:               #d4aa00;        /* gold in dark mode */
+  --primary-foreground:    #111009;
+  --secondary:             #2a2318;
+  --secondary-foreground:  #f0ebe4;
+  --muted:                 #1a1710;
+  --muted-foreground:      #a89880;
+  --accent:                #2a2318;
+  --accent-foreground:     #f0ebe4;
+  --destructive:           #ef4444;
+  --border:                #2e2820;
+  --input:                 #2e2820;
+  --ring:                  #d4aa00;
+
+  --bg-muted:              #1a1710;
+  --fg-muted:              #a89880;
+  --shadow-card:           0 1px 4px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --shadow-card-hover:     0 4px 12px rgba(0,0,0,0.4), 0 8px 28px rgba(0,0,0,0.25);
+}
+
+/* ─── Base styles ────────────────────────────────────────────── */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, Arial, sans-serif);
 }
+
+/* Card hover via CSS (avoids client component requirement) */
+.card {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* ─── Prose (blog content) ───────────────────────────────────── */
+.prose {
+  color: var(--foreground);
+  max-width: 72ch;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--foreground);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.25rem;
+}
+
+.prose h3 { font-size: 1.25rem; }
+
+.prose p {
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose a:hover { opacity: 0.75; }
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.prose ul  { list-style-type: disc; }
+.prose ol  { list-style-type: decimal; }
+.prose li  { line-height: 1.75; margin-bottom: 0.25rem; }
+
+.prose blockquote {
+  border-left: 4px solid var(--color-brand-gold);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+
+.prose img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+}
+
+.prose hr { border-color: var(--border); margin: 2rem 0; }
+
+.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; }
+.prose th {
+  background-color: var(--muted);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+.prose td { padding: 0.5rem 0.75rem; border: 1px solid var(--border); }
+
+.prose strong { font-weight: 700; color: var(--foreground); }

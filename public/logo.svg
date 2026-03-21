@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Circle background -->
+  <circle cx="100" cy="100" r="98" fill="#ececec" stroke="#d4aa00" stroke-width="2"/>
+
+  <!-- Oak leaf cluster (simplified illustration) -->
+  <!-- Main trunk -->
+  <path d="M100 145 L100 105" stroke="#6b3b19" stroke-width="4" stroke-linecap="round"/>
+  <!-- Left root -->
+  <path d="M100 145 L84 155" stroke="#6b3b19" stroke-width="3" stroke-linecap="round"/>
+  <!-- Right root -->
+  <path d="M100 145 L116 155" stroke="#6b3b19" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Oak canopy – large leaves -->
+  <ellipse cx="100" cy="80" rx="28" ry="22" fill="#d4aa00" opacity="0.9"/>
+  <ellipse cx="75"  cy="90" rx="22" ry="18" fill="#d4aa00" opacity="0.85"/>
+  <ellipse cx="125" cy="90" rx="22" ry="18" fill="#d4aa00" opacity="0.85"/>
+  <ellipse cx="86"  cy="68" rx="18" ry="15" fill="#88850b" opacity="0.8"/>
+  <ellipse cx="114" cy="68" rx="18" ry="15" fill="#88850b" opacity="0.8"/>
+  <ellipse cx="100" cy="60" rx="16" ry="14" fill="#d4aa00" opacity="0.95"/>
+
+  <!-- Leaf highlights -->
+  <ellipse cx="95"  cy="58" rx="6"  ry="5"  fill="#e8c840" opacity="0.6"/>
+  <ellipse cx="112" cy="67" rx="5"  ry="4"  fill="#e8c840" opacity="0.5"/>
+
+  <!-- Branch lines through canopy -->
+  <path d="M100 105 L88 88"  stroke="#6b3b19" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M100 105 L112 88" stroke="#6b3b19" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M100 105 L100 75" stroke="#6b3b19" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Text: VEREIN -->
+  <text x="100" y="172" font-family="Arial, sans-serif" font-size="11" font-weight="600"
+        letter-spacing="3" text-anchor="middle" fill="#d4aa00">VEREIN</text>
+  <!-- Text: 7 EICHEN -->
+  <text x="100" y="186" font-family="Arial, sans-serif" font-size="13" font-weight="700"
+        letter-spacing="1.5" text-anchor="middle" fill="#6b3b19">7 EICHEN</text>
+  <!-- Text: Siebnen -->
+  <text x="100" y="199" font-family="Arial, sans-serif" font-size="9" font-weight="500"
+        letter-spacing="2.5" text-anchor="middle" fill="#9d5d25">SIEBNEN</text>
+</svg>

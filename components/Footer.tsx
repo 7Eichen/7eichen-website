@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { LogoIcon } from './LogoIcon'
+import { SiebnenflagIcon } from './SiebnenflagIcon'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -8,28 +10,21 @@ export function Footer() {
       className="mt-auto"
       style={{
         backgroundColor: 'var(--muted)',
-        boxShadow: '0 -1px 8px rgba(0,0,0,0.04)',
+        borderTop: '1px solid var(--border)',
         color: 'var(--muted-foreground)',
       }}
     >
-      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Brand */}
-          <div>
-            <div className="flex flex-col leading-none mb-3">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: '#d4aa00' }}>
-                Verein
-              </span>
-              <span className="text-lg font-bold tracking-tight" style={{ color: '#6b3b19' }}>
-                7 Eichen
-              </span>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: '#d4aa00' }}>
-                Siebnen
-              </span>
+          <div className="flex items-start gap-5">
+            <SiebnenflagIcon className="shrink-0 mt-1 h-14 w-auto" />
+            <div>
+              <LogoIcon className="h-8 w-auto mb-3" />
+              <p className="text-sm max-w-xs" style={{ color: 'var(--muted-foreground)' }}>
+                Der Einwohnerverein von Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
+              </p>
             </div>
-            <p className="text-sm max-w-xs" style={{ color: 'var(--muted-foreground)' }}>
-              Der Einwohnerverein von Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
-            </p>
           </div>
 
           {/* Nav */}

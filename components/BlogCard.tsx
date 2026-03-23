@@ -37,13 +37,13 @@ export function BlogCard({ post }: { post: PostMeta }) {
 
         {/* Title */}
         <Link href={`/blog/${post.slug}`}>
-          <h2 className="text-base font-semibold leading-snug hover:underline" style={{ color: 'var(--foreground)' }}>
+          <h2 className="text-lg font-semibold leading-snug hover:underline" style={{ color: 'var(--foreground)' }}>
             {post.title}
           </h2>
         </Link>
 
         {/* Description */}
-        <p className="line-clamp-3 flex-1 text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
+        <p className="line-clamp-3 flex-1 leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
           {post.description}
         </p>
       </CardContent>

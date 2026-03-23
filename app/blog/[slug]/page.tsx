@@ -113,7 +113,7 @@ export default async function BlogPostPage({
       </p>
 
       {/* MDX Content – renders server-side, zero client JS unless you use client components inside */}
-      <div className="prose mt-8">
+      <div className="prose prose-lg dark:prose-invert mt-8">
         <MDXRemote source={source} options={{ ...mdxOptions, parseFrontmatter: true }} />
       </div>
 

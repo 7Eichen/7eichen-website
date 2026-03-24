@@ -1,9 +1,42 @@
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/blog'
 import { BlogCard } from '@/components/BlogCard'
 import { Button } from '@/components/ui/button'
 import { events, type Event } from '@/data/events'
+import { WangenIcon } from '@/components/WangenIcon'
+import { GalgenenIcon } from '@/components/GalgenenIcon'
+import { SchuelbachIcon } from '@/components/SchuelbachIcon'
+
+// ─── Data ─────────────────────────────────────────────────────
+
+const communes = [
+  {
+    name: 'Wangen',
+    population: '5\'100',
+    area: '9.6 km²',
+    altitude: '413 m ü.M.',
+    icon: WangenIcon,
+  },
+  {
+    name: 'Galgenen',
+    population: '6\'300',
+    area: '6.8 km²',
+    altitude: '430 m ü.M.',
+    icon: GalgenenIcon,
+  },
+  {
+    name: 'Schübelbach',
+    population: '8\'800',
+    area: '28.9 km²',
+    altitude: '420 m ü.M.',
+    icon: SchuelbachIcon,
+    note: 'inkl. Siebnen',
+  },
+]
+
+// ─── Helpers ──────────────────────────────────────────────────
 
 function formatEventDate(start: string, end?: string): string {
   const fmt = (d: string) =>
@@ -14,6 +47,8 @@ function formatEventDate(start: string, end?: string): string {
     })
   return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start)
 }
+
+// ─── Page ─────────────────────────────────────────────────────
 
 export default function HomePage() {
   const latestPosts = getAllPosts().slice(0, 3)
@@ -30,7 +65,6 @@ export default function HomePage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-[1600px] px-3 sm:px-4">
           <div className="relative overflow-hidden rounded-3xl" style={{ minHeight: '540px' }}>
-            {/* Background image */}
             <Image
               src="/images/home/siebnen.webp"
               alt="Siebnen"
@@ -38,64 +72,55 @@ export default function HomePage() {
               className="object-cover"
               priority
             />
-            {/* Dark overlay */}
             <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.40)' }} />
-
-            {/* Content */}
-            <div className="relative z-10 flex flex-col justify-end min-h-[540px] px-8 py-12 sm:px-14 sm:py-16">
-              <p
-                className="mb-3 text-sm font-semibold uppercase tracking-[0.2em]"
-                style={{ color: '#d4aa00' }}
-              >
-                Willkommen beim
-              </p>
-
-              <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl text-white">
-                Verein <span style={{ color: '#d4aa00' }}>7 Eichen</span>
-              </h1>
-
-              <p
-                className="mt-2 text-2xl font-semibold tracking-wide"
-                style={{ color: '#d4aa00' }}
-              >
-                Siebnen
-              </p>
-
-              <p className="mt-5 text-lg leading-relaxed text-white/80 max-w-xl">
-                Der Einwohnerverein von Siebnen verbindet Menschen, fördert das
-                Dorfgemeinschaftsleben und schafft gemeinsame Erlebnisse – für alle,
-                die in Siebnen zuhause sind.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button size="lg" asChild>
-                  <Link href="/blog">Neuigkeiten lesen</Link>
-                </Button>
+            <div className="relative z-10 min-h-[540px] px-8 py-12 sm:px-14 sm:py-16">
+              <div className="mx-auto flex min-h-[calc(540px-6rem)] max-w-6xl flex-col justify-end">
+                <p
+                  className="mb-3 text-sm font-semibold uppercase tracking-[0.2em]"
+                  style={{ color: '#d4aa00' }}
+                >
+                  Willkommen beim
+                </p>
+                <h1 className="text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl text-white">
+                  Verein <span style={{ color: '#d4aa00' }}>7 Eichen</span>
+                </h1>
+                <p
+                  className="mt-2 text-2xl font-semibold tracking-wide"
+                  style={{ color: '#d4aa00' }}
+                >
+                  Siebnen
+                </p>
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
+                  Der Einwohnerverein von Siebnen verbindet Menschen, fördert das
+                  Dorfgemeinschaftsleben und schafft gemeinsame Erlebnisse – für alle,
+                  die in Siebnen zuhause sind.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <Button size="lg" asChild>
+                    <Link href="/blog">Neuigkeiten lesen</Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About */}
+      {/* Communes */}
       <section className="py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
+              Unsere Gemeinden
+            </h2>
+            <p className="mt-2" style={{ color: 'var(--muted-foreground)' }}>
+              Der Verein 7 Eichen ist im Bezirk March, Kanton Schwyz zuhause
+            </p>
+          </div>
           <div className="grid gap-8 lg:grid-cols-3">
-            <FeatureCard
-              icon="🌳"
-              title="Gemeinschaft"
-              text="Wir verbinden Einwohnerinnen und Einwohner aus Siebnen und schaffen einen Ort der Begegnung und des Austausches."
-            />
-            <FeatureCard
-              icon="🎉"
-              title="Anlässe"
-              text="Vom Dorffest bis zum Jahresausflug – wir organisieren Veranstaltungen, die Menschen zusammenbringen."
-            />
-            <FeatureCard
-              icon="📣"
-              title="Engagement"
-              text="Wir setzen uns für das Wohl unseres Dorfes ein und bringen die Anliegen der Bevölkerung ein."
-            />
+            {communes.map((c) => (
+              <CommuneCard key={c.name} {...c} />
+            ))}
           </div>
         </div>
       </section>
@@ -103,7 +128,7 @@ export default function HomePage() {
       {/* Upcoming events */}
       {upcomingEvents.length > 0 && (
         <section className="py-20 sm:py-28" style={{ backgroundColor: 'var(--muted)' }}>
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-10 flex items-end justify-between">
               <div>
                 <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
@@ -117,7 +142,6 @@ export default function HomePage() {
                 Alle Veranstaltungen →
               </Link>
             </div>
-
             <div className="flex flex-col gap-4">
               {upcomingEvents.map((event, i) => (
                 <EventRow key={i} event={event} />
@@ -130,7 +154,7 @@ export default function HomePage() {
       {/* Latest posts */}
       {latestPosts.length > 0 && (
         <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="mb-10 flex items-end justify-between">
               <div>
                 <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
@@ -144,7 +168,6 @@ export default function HomePage() {
                 Alle Beiträge →
               </Link>
             </div>
-
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} />
@@ -157,27 +180,68 @@ export default function HomePage() {
   )
 }
 
-function FeatureCard({
-  icon,
-  title,
-  text,
+// ─── Components ───────────────────────────────────────────────
+
+function CommuneCard({
+  name,
+  population,
+  area,
+  altitude,
+  icon: Icon,
+  note,
 }: {
-  icon: string
-  title: string
-  text: string
+  name: string
+  population: string
+  area: string
+  altitude: string
+  icon: React.ComponentType<{ className?: string }>
+  note?: string
 }) {
   return (
     <div
-      className="card rounded-2xl p-8"
+      className="card rounded-2xl p-8 flex flex-col items-center text-center"
       style={{ backgroundColor: 'var(--card)' }}
     >
-      <div className="mb-4 text-4xl">{icon}</div>
-      <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--foreground)' }}>
-        {title}
+      <Icon className="h-24 w-auto mb-5" />
+
+      <h3 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+        {name}
       </h3>
-      <p className="leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-        {text}
-      </p>
+      {note && (
+        <p className="mt-0.5 text-xs" style={{ color: 'var(--muted-foreground)' }}>
+          {note}
+        </p>
+      )}
+
+      <div
+        className="mt-5 w-full rounded-xl p-4 grid grid-cols-3 gap-2"
+        style={{ backgroundColor: 'var(--muted)' }}
+      >
+        <div>
+          <p className="text-base font-bold tabular-nums" style={{ color: 'var(--foreground)' }}>
+            {population}
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+            Einwohner
+          </p>
+        </div>
+        <div>
+          <p className="text-base font-bold" style={{ color: 'var(--foreground)' }}>
+            {area}
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+            Fläche
+          </p>
+        </div>
+        <div>
+          <p className="text-base font-bold" style={{ color: 'var(--foreground)' }}>
+            {altitude}
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+            Höhe
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
@@ -188,7 +252,6 @@ function EventRow({ event }: { event: Event }) {
       className="card flex flex-col gap-1 rounded-2xl px-6 py-5 sm:flex-row sm:items-center sm:gap-6"
       style={{ backgroundColor: 'var(--card)' }}
     >
-      {/* Date badge */}
       <div
         className="shrink-0 rounded-xl px-4 py-2 text-center sm:w-44"
         style={{ backgroundColor: 'var(--muted)' }}
@@ -198,7 +261,6 @@ function EventRow({ event }: { event: Event }) {
         </p>
       </div>
 
-      {/* Details */}
       <div className="flex-1">
         <p className="font-semibold text-lg" style={{ color: 'var(--foreground)' }}>
           {event.name}
@@ -208,7 +270,6 @@ function EventRow({ event }: { event: Event }) {
         </p>
       </div>
 
-      {/* Link */}
       {event.url && (
         <Link
           href={event.url}

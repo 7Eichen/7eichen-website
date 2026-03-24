@@ -14,7 +14,7 @@ export function Footer() {
         color: 'var(--muted-foreground)',
       }}
     >
-      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Brand */}
           <div className="flex items-start gap-5">

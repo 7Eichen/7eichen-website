@@ -21,7 +21,7 @@ export default async function BlogPage({
   const allTags = getAllTags()
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       {/* Page header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>

@@ -160,3 +160,5 @@ body {
 }
 
 .prose img { border-radius: 0.75rem; }
+
+@import "../node_modules/tw-animate-css/dist/tw-animate.css";

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { LogoIcon } from './LogoIcon'
 import { SiebnenflagIcon } from './SiebnenflagIcon'
 
 export function Footer() {
@@ -19,12 +18,9 @@ export function Footer() {
           {/* Brand */}
           <div className="flex items-start gap-5">
             <SiebnenflagIcon className="shrink-0 mt-1 h-14 w-auto" />
-            <div>
-              <LogoIcon className="h-8 w-auto mb-3" />
-              <p className="text-sm max-w-xs" style={{ color: 'var(--muted-foreground)' }}>
-                Der Einwohnerverein von Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
-              </p>
-            </div>
+            <p className="text-sm max-w-xs" style={{ color: 'var(--muted-foreground)' }}>
+              Der Einwohnerverein von Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
+            </p>
           </div>
 
           {/* Nav */}

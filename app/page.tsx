@@ -129,7 +129,7 @@ export default function HomePage() {
       {upcomingEvents.length > 0 && (
         <section className="py-20 sm:py-28" style={{ backgroundColor: 'var(--muted)' }}>
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="mb-10 flex items-end justify-between">
+            <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
                   Nächste Veranstaltungen
@@ -138,7 +138,7 @@ export default function HomePage() {
                   Was demnächst bei uns stattfindet
                 </p>
               </div>
-              <Link href="/events" className="nav-link" style={{ opacity: 1, color: '#6b3b19' }}>
+              <Link href="/events" className="nav-link shrink-0" style={{ opacity: 1, color: '#6b3b19' }}>
                 Alle Veranstaltungen →
               </Link>
             </div>
@@ -155,7 +155,7 @@ export default function HomePage() {
       {latestPosts.length > 0 && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="mb-10 flex items-end justify-between">
+            <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
                   Aktuelles
@@ -164,7 +164,7 @@ export default function HomePage() {
                   Die neuesten Beiträge aus dem Vereinsleben
                 </p>
               </div>
-              <Link href="/blog" className="nav-link" style={{ opacity: 1, color: '#6b3b19' }}>
+              <Link href="/blog" className="nav-link shrink-0" style={{ opacity: 1, color: '#6b3b19' }}>
                 Alle Beiträge →
               </Link>
             </div>

@@ -19,7 +19,19 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const shrinkAt = 40
+    const expandAt = 10
+
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled((current) => {
+        if (!current && y > shrinkAt) return true
+        if (current && y < expandAt) return false
+        return current
+      })
+    }
+
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -36,16 +48,20 @@ export function Header() {
       <div
         className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6"
         style={{
-          paddingTop: scrolled ? '0.75rem' : '1.25rem',
-          paddingBottom: scrolled ? '0.75rem' : '1.25rem',
+          paddingTop: scrolled ? '0.75rem' : '1.1rem',
+          paddingBottom: scrolled ? '0.75rem' : '1.1rem',
           transition: 'padding 0.3s ease',
         }}
       >
         {/* Logo */}
-        <Link href="/" aria-label="Verein 7 Eichen Siebnen – Startseite">
+        <Link
+          href="/"
+          aria-label="Verein 7 Eichen Siebnen – Startseite"
+          className="flex items-center"
+        >
           <LogoIcon
             style={{
-              height: scrolled ? '2.5rem' : '3.5rem',
+              height: scrolled ? '2.8rem' : '3.5rem',
               width: 'auto',
               transition: 'height 0.3s ease',
             }}

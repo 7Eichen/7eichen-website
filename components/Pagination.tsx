@@ -13,7 +13,7 @@ function pageHref(page: number, tag?: string) {
   if (page > 1) params.set('page', String(page))
   if (tag) params.set('tag', tag)
   const qs = params.toString()
-  return `/blog${qs ? `?${qs}` : ''}`
+  return `/news${qs ? `?${qs}` : ''}`
 }
 
 export function Pagination({ currentPage, totalPages, tag }: PaginationProps) {

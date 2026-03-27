@@ -10,8 +10,8 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from './ui/
 
 const navLinks = [
   { href: '/', label: 'Start' },
+  { href: '/news', label: 'News' },
   { href: '/events', label: 'Veranstaltungen' },
-  { href: '/blog', label: 'Blog' },
 ]
 
 export function Header() {
@@ -19,8 +19,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const shrinkAt = 40
-    const expandAt = 10
+    const shrinkAt = 45
+    const expandAt = 15
 
     const onScroll = () => {
       const y = window.scrollY

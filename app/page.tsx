@@ -1,38 +1,41 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getAllPosts } from '@/lib/blog'
-import { BlogCard } from '@/components/BlogCard'
+import { getAllPosts } from '@/lib/news'
+import { NewsCard } from '@/components/NewsCard'
 import { Button } from '@/components/ui/button'
 import { events, type Event } from '@/data/events'
 import { WangenIcon } from '@/components/WangenIcon'
 import { GalgenenIcon } from '@/components/GalgenenIcon'
 import { SchuelbachIcon } from '@/components/SchuelbachIcon'
+import { BorderTabs } from '@/components/BorderTabs'
 
 // ─── Data ─────────────────────────────────────────────────────
 
 const communes = [
   {
     name: 'Wangen',
-    population: '5\'100',
-    area: '9.6 km²',
-    altitude: '413 m ü.M.',
+    population: '5\'490',
+    siebnen: '1\'800',
+    area: '10.86 km²',
     icon: WangenIcon,
+    url: 'https://www.wangensz.ch/',
   },
   {
     name: 'Galgenen',
-    population: '6\'300',
-    area: '6.8 km²',
-    altitude: '430 m ü.M.',
+    population: '5\'436',
+    siebnen: '2\'039',
+    area: '13.26 km²',
     icon: GalgenenIcon,
+    url: 'https://www.galgenen.ch/',
   },
   {
     name: 'Schübelbach',
-    population: '8\'800',
-    area: '28.9 km²',
-    altitude: '420 m ü.M.',
+    population: '9\'863',
+    siebnen: '3\'500',
+    area: '28.78 km²',
     icon: SchuelbachIcon,
-    note: 'inkl. Siebnen',
+    url: 'https://www.schuebelbach.ch/',
   },
 ]
 
@@ -91,13 +94,13 @@ export default function HomePage() {
                   Siebnen
                 </p>
                 <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
-                  Der Einwohnerverein von Siebnen verbindet Menschen, fördert das
-                  Dorfgemeinschaftsleben und schafft gemeinsame Erlebnisse – für alle,
-                  die in Siebnen zuhause sind.
+                  Der Dorfverein von Siebnen bringt Menschen zusammen, stärkt
+                  das Dorfleben und schafft gemeinsame Erlebnisse für alle, die
+                  sich hier zu Hause fühlen.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <Button size="lg" asChild>
-                    <Link href="/blog">Neuigkeiten lesen</Link>
+                    <Link href="/news">Neuigkeiten lesen</Link>
                   </Button>
                 </div>
               </div>
@@ -111,16 +114,20 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
-              Unsere Gemeinden
+              Siebnen – ein Dorf aus drei Gemeinden
             </h2>
-            <p className="mt-2" style={{ color: 'var(--muted-foreground)' }}>
-              Der Verein 7 Eichen ist im Bezirk March, Kanton Schwyz zuhause
+            <p className="mt-4 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
+              Was heute drei Gemeinden verbindet, ist seit über 1000 Jahren gewachsen. 972 erstmals als „Sibineihha" erwähnt, leitet sich der Name von sieben Eichen an der Wägitaler Aa ab. Bis heute ist Siebnen ein lebendiges Dorf mit gemeinsamer Identität.
             </p>
           </div>
           <div className="grid gap-8 lg:grid-cols-3">
             {communes.map((c) => (
               <CommuneCard key={c.name} {...c} />
             ))}
+          </div>
+
+          <div className="mt-16">
+            <BorderTabs />
           </div>
         </div>
       </section>
@@ -164,13 +171,13 @@ export default function HomePage() {
                   Die neuesten Beiträge aus dem Vereinsleben
                 </p>
               </div>
-              <Link href="/blog" className="nav-link shrink-0" style={{ opacity: 1, color: '#6b3b19' }}>
+              <Link href="/news" className="nav-link shrink-0" style={{ opacity: 1, color: '#6b3b19' }}>
                 Alle Beiträge →
               </Link>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+                <NewsCard key={post.slug} post={post} />
               ))}
             </div>
           </div>
@@ -185,17 +192,17 @@ export default function HomePage() {
 function CommuneCard({
   name,
   population,
+  siebnen,
   area,
-  altitude,
   icon: Icon,
-  note,
+  url,
 }: {
   name: string
   population: string
+  siebnen: string
   area: string
-  altitude: string
   icon: React.ComponentType<{ className?: string }>
-  note?: string
+  url: string
 }) {
   return (
     <div
@@ -207,11 +214,6 @@ function CommuneCard({
       <h3 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
         {name}
       </h3>
-      {note && (
-        <p className="mt-0.5 text-xs" style={{ color: 'var(--muted-foreground)' }}>
-          {note}
-        </p>
-      )}
 
       <div
         className="mt-5 w-full rounded-xl p-4 grid grid-cols-3 gap-2"
@@ -226,6 +228,14 @@ function CommuneCard({
           </p>
         </div>
         <div>
+          <p className="text-base font-bold tabular-nums" style={{ color: 'var(--foreground)' }}>
+            {siebnen}
+          </p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
+            in Siebnen
+          </p>
+        </div>
+        <div>
           <p className="text-base font-bold" style={{ color: 'var(--foreground)' }}>
             {area}
           </p>
@@ -233,15 +243,17 @@ function CommuneCard({
             Fläche
           </p>
         </div>
-        <div>
-          <p className="text-base font-bold" style={{ color: 'var(--foreground)' }}>
-            {altitude}
-          </p>
-          <p className="text-xs mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
-            Höhe
-          </p>
-        </div>
       </div>
+
+      <Link
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 text-sm font-medium underline underline-offset-2 hover:opacity-75"
+        style={{ color: '#6b3b19' }}
+      >
+        Website besuchen →
+      </Link>
     </div>
   )
 }

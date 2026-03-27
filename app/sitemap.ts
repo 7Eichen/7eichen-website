@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { getAllPosts } from '@/lib/blog'
+import { getAllPosts } from '@/lib/news'
 import { BASE_URL } from '@/lib/constants'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -17,18 +17,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/blog`,
+      url: `${BASE_URL}/news`,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
   ]
 
-  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
+  const newsPages: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE_URL}/news/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'yearly',
     priority: 0.6,
   }))
 
-  return [...staticPages, ...blogPages]
+  return [...staticPages, ...newsPages]
 }

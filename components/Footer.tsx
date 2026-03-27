@@ -34,8 +34,8 @@ export function Footer() {
             <Link href="/events" className="text-sm hover:underline" style={{ color: 'var(--muted-foreground)' }}>
               Veranstaltungen
             </Link>
-            <Link href="/blog" className="text-sm hover:underline" style={{ color: 'var(--muted-foreground)' }}>
-              Blog
+            <Link href="/news" className="text-sm hover:underline" style={{ color: 'var(--muted-foreground)' }}>
+              News
             </Link>
           </nav>
         </div>

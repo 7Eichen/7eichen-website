@@ -19,7 +19,9 @@ export function Footer() {
           <div className="flex items-start gap-5">
             <SiebnenflagIcon className="shrink-0 mt-1 h-14 w-auto" />
             <p className="text-sm max-w-xs" style={{ color: 'var(--muted-foreground)' }}>
-              Der Einwohnerverein von Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
+              Verein 7 Eichen Siebnen – für ein lebendiges Dorfgemeinschaftsleben.
+              Wir organisieren Veranstaltungen, fördern den Zusammenhalt und
+              setzen uns für die Interessen der Siebner Bevölkerung ein.
             </p>
           </div>
 
@@ -41,7 +43,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-6 text-xs text-center sm:text-left" style={{ color: 'var(--muted-foreground)', opacity: 0.6 }}>
-          © {year} Verein 7 Eichen Siebnen. Alle Rechte vorbehalten.
+          © {year}Alle Rechte vorbehalten.
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { events } from '@/data/events'
+import { getEvents, type Event } from '@/lib/events'
 import { BASE_URL } from '@/lib/constants'
 
 const url = `${BASE_URL}/events`
@@ -17,22 +17,19 @@ export const metadata: Metadata = {
   },
 }
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('de-CH', {
-    weekday: 'long',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  })
+function formatWeekdayRange(start: string, end?: string): string {
+  const fmt = (d: string) => new Date(d).toLocaleDateString('de-CH', { weekday: 'long' })
+  return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start)
 }
 
 function formatDateRange(start: string, end?: string): string {
-  if (!end) return formatDate(start)
-  return `${formatDate(start)} – ${formatDate(end)}`
+  const fmt = (d: string) =>
+    new Date(d).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start)
 }
 
 export default function EventsPage() {
-  const sorted = [...events].sort((a, b) => a.start.localeCompare(b.start))
+  const sorted = [...getEvents()].sort((a, b) => a.start.localeCompare(b.start))
   const now = new Date().toISOString().slice(0, 10)
 
   const upcoming = sorted.filter((e) => (e.end ?? e.start) >= now)
@@ -63,7 +60,7 @@ export default function EventsPage() {
   )
 }
 
-function EventTable({ events, muted = false }: { events: typeof import('@/data/events').events; muted?: boolean }) {
+function EventTable({ events, muted = false }: { events: Event[]; muted?: boolean }) {
   if (events.length === 0) {
     return (
       <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
@@ -91,7 +88,7 @@ function EventTable({ events, muted = false }: { events: typeof import('@/data/e
                 Ort
               </th>
               <th className="px-4 py-3 text-left font-semibold hidden md:table-cell" style={{ color: 'var(--muted-foreground)' }}>
-                Beschreibung
+                Organisator
               </th>
               <th className="px-4 py-3 text-left font-semibold" style={{ color: 'var(--muted-foreground)' }}>
                 Info
@@ -107,14 +104,19 @@ function EventTable({ events, muted = false }: { events: typeof import('@/data/e
                   opacity: muted ? 0.6 : 1,
                 }}
               >
-                <td
-                  className="px-4 py-3 whitespace-nowrap font-medium tabular-nums"
-                  style={{ color: 'var(--foreground)' }}
-                >
+                <td className="px-4 py-3 font-medium tabular-nums" style={{ color: 'var(--foreground)' }}>
+                  <span className="block text-xs font-medium" style={{ color: 'var(--muted-foreground)' }}>
+                    {formatWeekdayRange(event.start, event.end)}
+                  </span>
                   {formatDateRange(event.start, event.end)}
                 </td>
                 <td className="px-4 py-3" style={{ color: 'var(--foreground)' }}>
                   <span className="font-medium">{event.name}</span>
+                  {event.description && (
+                    <span className="mt-0.5 block text-xs" style={{ color: 'var(--muted-foreground)' }}>
+                      {event.description}
+                    </span>
+                  )}
                   <span className="mt-0.5 block text-xs sm:hidden" style={{ color: 'var(--muted-foreground)' }}>
                     {event.location}
                   </span>
@@ -123,7 +125,7 @@ function EventTable({ events, muted = false }: { events: typeof import('@/data/e
                   {event.location}
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell" style={{ color: 'var(--muted-foreground)' }}>
-                  {event.description}
+                  {event.organizer}
                 </td>
                 <td className="px-4 py-3">
                   {event.url ? (

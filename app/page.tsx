@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getAllPosts } from '@/lib/news'
 import { NewsCard } from '@/components/NewsCard'
 import { Button } from '@/components/ui/button'
-import { events, type Event } from '@/data/events'
+import { getEvents, type Event } from '@/lib/events'
 import { WangenIcon } from '@/components/WangenIcon'
 import { GalgenenIcon } from '@/components/GalgenenIcon'
 import { SchuelbachIcon } from '@/components/SchuelbachIcon'
@@ -41,14 +41,22 @@ const communes = [
 
 // ─── Helpers ──────────────────────────────────────────────────
 
-function formatEventDate(start: string, end?: string): string {
-  const fmt = (d: string) =>
-    new Date(d).toLocaleDateString('de-CH', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    })
+function formatWeekday(start: string, end?: string): string {
+  const fmt = (d: string) => new Date(d).toLocaleDateString('de-CH', { weekday: 'long' })
   return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start)
+}
+
+function formatEventDate(start: string, end?: string): string {
+  if (end) {
+    const s = new Date(start).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit' })
+    const e = new Date(end).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    return `${s} – ${e}`
+  }
+  return new Date(start).toLocaleDateString('de-CH', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })
 }
 
 // ─── Page ─────────────────────────────────────────────────────
@@ -57,7 +65,7 @@ export default function HomePage() {
   const latestPosts = getAllPosts().slice(0, 3)
 
   const today = new Date().toISOString().slice(0, 10)
-  const upcomingEvents = [...events]
+  const upcomingEvents = [...getEvents()]
     .sort((a, b) => a.start.localeCompare(b.start))
     .filter((e) => (e.end ?? e.start) >= today)
     .slice(0, 3)
@@ -265,9 +273,12 @@ function EventRow({ event }: { event: Event }) {
       style={{ backgroundColor: 'var(--card)' }}
     >
       <div
-        className="shrink-0 rounded-xl px-4 py-2 text-center sm:w-44"
+        className="shrink-0 rounded-xl px-4 py-2 text-center sm:w-52"
         style={{ backgroundColor: 'var(--muted)' }}
       >
+        <p className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--muted-foreground)' }}>
+          {formatWeekday(event.start, event.end)}
+        </p>
         <p className="text-sm font-semibold tabular-nums" style={{ color: 'var(--foreground)' }}>
           {formatEventDate(event.start, event.end)}
         </p>
@@ -279,6 +290,14 @@ function EventRow({ event }: { event: Event }) {
         </p>
         <p className="text-sm mt-0.5" style={{ color: 'var(--muted-foreground)' }}>
           {event.location}
+        </p>
+        {event.description && (
+          <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>
+            {event.description}
+          </p>
+        )}
+        <p className="text-sm mt-1 font-medium" style={{ color: 'var(--muted-foreground)' }}>
+          {event.organizer}
         </p>
       </div>
 

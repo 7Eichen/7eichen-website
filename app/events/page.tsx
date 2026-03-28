@@ -101,7 +101,8 @@ function EventTable({ events, muted = false }: { events: Event[]; muted?: boolea
                 key={i}
                 style={{
                   borderBottom: i < events.length - 1 ? '1px solid var(--border)' : undefined,
-                  opacity: muted ? 0.6 : 1,
+                  opacity: muted ? 0.45 : 1,
+                  fontStyle: muted ? 'italic' : undefined,
                 }}
               >
                 <td className="px-4 py-3 font-medium tabular-nums" style={{ color: 'var(--foreground)' }}>

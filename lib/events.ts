@@ -14,9 +14,11 @@ export interface Event {
 
 function toDateStr(val: unknown): string {
   if (val instanceof Date) {
-    const y = val.getUTCFullYear()
-    const m = String(val.getUTCMonth() + 1).padStart(2, '0')
-    const d = String(val.getUTCDate()).padStart(2, '0')
+    // Add 12h to handle Excel dates stored as UTC midnight (e.g. 23:00 UTC = midnight CET)
+    const adjusted = new Date(val.getTime() + 12 * 60 * 60 * 1000)
+    const y = adjusted.getUTCFullYear()
+    const m = String(adjusted.getUTCMonth() + 1).padStart(2, '0')
+    const d = String(adjusted.getUTCDate()).padStart(2, '0')
     return `${y}-${m}-${d}`
   }
   const str = String(val ?? '').trim()

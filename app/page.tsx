@@ -32,7 +32,7 @@ const communes = [
   {
     name: 'Schübelbach',
     population: '9\'863',
-    siebnen: '3\'500',
+    siebnen: '2\'891',
     area: '28.78 km²',
     icon: SchuelbachIcon,
     url: 'https://www.schuebelbach.ch/',

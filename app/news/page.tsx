@@ -23,11 +23,11 @@ export default async function NewsPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       {/* Page header */}
-      <div className="mb-8">
+      <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold sm:text-4xl" style={{ color: 'var(--foreground)' }}>
           News
         </h1>
-        <p className="mt-2 text-base" style={{ color: 'var(--muted-foreground)' }}>
+        <p className="mt-4 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
           Neuigkeiten und Berichte aus dem Vereinsleben
         </p>
       </div>

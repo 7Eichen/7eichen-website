@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 
 const MAPS = [
@@ -26,8 +27,19 @@ const MAPS = [
 ]
 
 export function BorderTabs() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const map = searchParams.get('map') ?? 'siebnen'
+
+  function onTabChange(value: string) {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('map', value)
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
+  }
+
   return (
-    <Tabs defaultValue="siebnen" className="w-full">
+    <Tabs value={map} onValueChange={onTabChange} className="w-full">
       <TabsList className="mb-4 !grid grid-cols-2 !h-auto !w-full gap-1 sm:!inline-flex sm:!w-fit sm:mx-auto">
         {MAPS.map((m) => (
           <TabsTrigger key={m.id} value={m.id} className="cursor-pointer !h-9 px-4 text-sm">

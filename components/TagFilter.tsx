@@ -15,7 +15,7 @@ export function TagFilter({ tags, activeTag }: TagFilterProps) {
         Filtern:
       </span>
 
-      <Link href="/news">
+      <Link href="/news" scroll={false}>
         <Badge
           variant={!activeTag ? 'default' : 'secondary'}
           className="cursor-pointer transition-opacity hover:opacity-80"
@@ -25,7 +25,7 @@ export function TagFilter({ tags, activeTag }: TagFilterProps) {
       </Link>
 
       {tags.map((tag) => (
-        <Link key={tag} href={tag === activeTag ? '/news' : `/news?tag=${encodeURIComponent(tag)}`}>
+        <Link key={tag} href={tag === activeTag ? '/news' : `/news?tag=${encodeURIComponent(tag)}`} scroll={false}>
           <Badge
             variant={tag === activeTag ? 'default' : 'secondary'}
             className="cursor-pointer transition-opacity hover:opacity-80"

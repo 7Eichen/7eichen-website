@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from './ui/
 
 const navLinks = [
   { href: '/', label: 'Start' },
+  { href: '/siebnen', label: 'Siebnen' },
   { href: '/news', label: 'News' },
   { href: '/events', label: 'Veranstaltungen' },
 ]

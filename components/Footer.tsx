@@ -43,7 +43,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-6 text-xs text-center sm:text-left" style={{ color: 'var(--muted-foreground)', opacity: 0.6 }}>
-          © {year}Alle Rechte vorbehalten.
+          © {year} Alle Rechte vorbehalten.
         </div>
       </div>
     </footer>

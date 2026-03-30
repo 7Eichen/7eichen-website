@@ -16,7 +16,7 @@ const communes = [
   {
     name: 'Wangen',
     population: '5\'490',
-    siebnen: '1\'800',
+    siebnen: '1\'624',
     area: '10.86 km²',
     icon: WangenIcon,
     url: 'https://www.wangensz.ch/',
